@@ -9,11 +9,6 @@ $localPath = '\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\'
 
 # Locations of the helper scripts used here
 
-# Data insert
-$writeScriptPath
-$writeScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_write.txt"
-$writeScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_write.txt"
-
 # Market messages
 $marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_gz_messages.py'
 $marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_market_message.txt"
@@ -22,9 +17,6 @@ $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\log
 # Specify the delimiter and the header row in the csv files used for comparison
 $compCsvDelimiter = ','
 $compCsvheader = 1
-
-# Specify the path to the log file for the comparison script
-$compCsvLogPath = 'C:\laragon\www\CMOS-connect\scripts\logs\comparison_log.txt'
 
 # Session log is stored here
 $logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
@@ -173,15 +165,9 @@ if ($downloadedItems.Count -gt 0)
 
     "[$((Get-Date).ToString())] -----FILES TO PROCESS-----" | Out-File -FilePath $logFile -Append
 
-    # Array containing the $downloadedItems filtered by $dataTypes
-    $downloadedItemsToCompare = Get-FilesToCompare -downloads $downloadedItems -keywords $dataTypes
-
     "[$((Get-Date).ToString())] -----MDS DATA SETS-----" | Out-File -FilePath $logFile -Append
 
-    # Check if any of the downloaded files matched the filter
-    if ($downloadedItemsToCompare.Count -gt 0)
-    {
-        $fileData = Get-DirectoryAndFilename -filepaths $downloadedItemsToCompare
+    $fileData = Get-DirectoryAndFilename -filepaths $downloadedItemsToCompare # <---------------------------------- deleted var
         
         foreach ($file in $fileData)
         {
@@ -210,13 +196,6 @@ if ($downloadedItems.Count -gt 0)
 
                     continue
                 }
-                
-                # Get the directly previous data set of the same data type as the file being currently processed
-                $previousMostRecentUpload = Get-PreviousDataSet -downloadedFile $file
-
-                # If it doesn't exist, there is no preceeding file - which implies that data needs to be written into the table
-                if (!$previousMostRecentUpload)
-                {
 
                     # Handle the edge cases - data types that does no follow either a common naming convention (5 char string) and/or common table name convention (named as mds_*data type*)
                     if ($file.DataType -eq "TRIF")
@@ -246,16 +225,6 @@ if ($downloadedItems.Count -gt 0)
                     Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "$($file.DataType)" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
 
                     "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-                    
-                    continue
-                }
-
-                $previousMostRecentUploadPath = "$($file.Directory)\$previousMostRecentUpload"
-                
-                "[$((Get-Date).ToString())] Downloaded file path: $downloadedFilePath" | Out-File -FilePath $logFile -Append
-                "[$((Get-Date).ToString())] Previous most recent file path: $previousMostRecentUploadPath" | Out-File -FilePath $logFile -Append
-
-                Start-Process python -ArgumentList "$comparisonScriptPath", "$downloadedFilePath", "$previousMostRecentUploadPath", "$compCsvDelimiter", "$compCsvheader", "$compCsvLogPath" -Wait -RedirectStandardOutput $comparisonScriptOutputLogPath -RedirectStandardError $comparisonScriptErrorLogPath
 
                 # Append to the log based on what was returned by the python script
                 if ($LASTEXITCODE -ne 0)
@@ -270,12 +239,6 @@ if ($downloadedItems.Count -gt 0)
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
         }
-    }
-    else 
-    {
-        "[$((Get-Date).ToString())] No downloaded files are in need of processing" | Out-File -FilePath $logFile -Append
-        "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-    }
 
     "[$((Get-Date).ToString())] -----SCRIPT EXECUTION COMPLETED-----" | Out-File -FilePath $logFile -Append
 }
