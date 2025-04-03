@@ -185,46 +185,34 @@ if ($downloadedItems.Count -gt 0)
             }
             else 
             {
-                # Get the filepath of where the diff file would be stored if it already exists
-                $diffPath = $file.Directory + "\differences\unique_" + $file.Filename
-
-                # Check if the diff file already exists - if it does, skip the current iteration of the loop
-                if (Test-Path $diffPath -PathType Leaf)
+                # Handle the edge cases - data types that does no follow either a common naming convention (5 char string) and/or common table name convention (named as mds_*data type*)
+                if ($file.DataType -eq "TRIF")
                 {
-                    "[$((Get-Date).ToString())] Diff file already exists for the downloaded file - skipping: $diffPath" | Out-File -FilePath $logFile -Append
-                    "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+                    "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the tariff table." | Out-File -FilePath $logFile -Append
 
+                    Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "tariff" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
+
+                    "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+                    
                     continue
                 }
 
-                    # Handle the edge cases - data types that does no follow either a common naming convention (5 char string) and/or common table name convention (named as mds_*data type*)
-                    if ($file.DataType -eq "TRIF")
-                    {
-                        "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the tariff table." | Out-File -FilePath $logFile -Append
+                if ($file.DataType -eq "SSPID")
+                {
+                    "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the sspids table." | Out-File -FilePath $logFile -Append
 
-                        Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "tariff" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
-
-                        "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-                        
-                        continue
-                    }
-
-                    if ($file.DataType -eq "SSPID")
-                    {
-                        "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the sspids table." | Out-File -FilePath $logFile -Append
-
-                        Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "sspids" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
-
-                        "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-                        
-                        continue
-                    }
-                    
-                    "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the $($file.DataType) table." | Out-File -FilePath $logFile -Append
-
-                    Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "$($file.DataType)" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
+                    Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "sspids" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
 
                     "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+                    
+                    continue
+                }
+                    
+                "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the $($file.DataType) table." | Out-File -FilePath $logFile -Append
+
+                Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "$($file.DataType)" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
+
+                "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
 
                 # Append to the log based on what was returned by the python script
                 if ($LASTEXITCODE -ne 0)
