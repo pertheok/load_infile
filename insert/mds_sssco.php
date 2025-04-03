@@ -12,8 +12,6 @@
     // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
     try
     {
-
-        //$fileName = $_GET['filename'];
         $fileName = 'MDS_SSSCO_SMARTA_R_E20230817_G2023081801';
         $tableName = 'mds_sssco';
         $importType = 'mds_sssco';
@@ -74,9 +72,7 @@
 
        
     } catch(PDOException $e) {
-
         echo 'DB load error: ' . $e->getMessage();
-
     }
 
     include('../includes/pageAudit.php');
