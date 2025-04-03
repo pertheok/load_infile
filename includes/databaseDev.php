@@ -1,7 +1,6 @@
 <?php
 	
-	
-	// Database Connection*/
+	// Database Connection
 	
 	define('DB_HOST', 'get_from_env');
 	define('DB_USER', 'get_from_env');
