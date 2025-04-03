@@ -26,7 +26,7 @@
         $dataset = array(
             'dpid',
             'spid',
-            'calculatedDischargeId',
+            'calculatedDischargeID',
             'dischargeType',
             'effectiveFromDate',
             'submissionFrequency',

@@ -24,12 +24,13 @@
         $tableName = 'mds_mnets';
         $importType = 'MDS_MNETS';
         $dataset = array(
-            'sPID',
-            'mainMeterManufacturer',
-            'mainMeterSerialNumber',
-            'subMeterManufacturer',
-            'subMeterSerialNumber',
-            'effectivefromdate'
+            'spid',
+            'meterManufacturer',
+            'manufacturerMeterSerialNumber',
+            'meterReadValue',
+            'meterReadDate',
+            'rolloverFlag',
+            'testFailed',
         );        
 
         // Insert to MDS 

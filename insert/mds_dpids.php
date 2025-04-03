@@ -24,8 +24,8 @@
         $tableName = 'mds_dpids';
         $importType = 'MDS_DPIDS';
         $dataset = array(
-            'sPID',
-            'dPID',
+            'spid',
+            'dpid',
             'tradeEffluentTariffCode',
             'tradeEffluentTariffBand',
             'chemicalOxygenDemand',
@@ -36,6 +36,7 @@
             'tradeEffluentComponentYcontent',
             'tradeEffluentComponentZcontent',
             'sewerageVolumeAdjustmentMethod',
+            'receptionTreatmentIndicator',
             'primaryTreatmentIndicator',
             'marineTreatmentIndicator',
             'biologicalTreatmentIndicator',

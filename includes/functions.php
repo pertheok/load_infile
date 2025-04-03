@@ -1,6 +1,6 @@
 <?php
 
-    function mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, $seperator = null, $lines = 2) 
+    function mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, $separator = null, $lines = 2) 
     {
         $fileName = '../newdata/' . $fileName . '.csv';
 
@@ -8,14 +8,14 @@
         $dataset = implode(',', $dataset);
 
         // if not seperator use a comma else
-        if(is_null($seperator))
+        if(is_null($separator))
         {
-            $seperator = ',';
+            $separator = ',';
         }
 
         // Insert to the apporpriate new upload table and the archive table        
         $query = "LOAD DATA LOCAL INFILE '" . $fileName  . "' INTO TABLE " . $tableName . "
-                FIELDS TERMINATED BY '" . $seperator . "' OPTIONALLY ENCLOSED BY '\"' 
+                FIELDS TERMINATED BY '" . $separator . "' OPTIONALLY ENCLOSED BY '\"' 
                 LINES TERMINATED BY '\\n' 
                 IGNORE " . $lines . " LINES 
                 (
