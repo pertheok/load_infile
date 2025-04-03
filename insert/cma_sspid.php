@@ -3,7 +3,7 @@
     $timeStart = microtime(true); 
 
     // Site auditing action
-    $action = 'SCOT SSPIDS New Uploads';
+    $action = 'cma_sspid New Uploads';
 
     // include required files
     include('../../includes/functions.php');

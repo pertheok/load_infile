@@ -9,7 +9,7 @@
     $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'SCOT AM READS New Uploads';
+    $action = 'cma_reads New Uploads';
 
     // include required files
     include('../../includes/functions.php');

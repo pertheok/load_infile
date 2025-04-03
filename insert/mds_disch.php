@@ -9,7 +9,7 @@
     $timeStart = microtime(true); 
 
     // Site auditing action
-    $action = 'DISCH New Uploads';
+    $action = 'mds_disch New Uploads';
 
     // include required files
     include('../includes/functions.php');

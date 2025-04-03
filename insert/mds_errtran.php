@@ -9,7 +9,7 @@
      $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'DCHVL New Uploads';
+    $action = 'mds_errtran New Uploads';
 
     // include required files
     include('../includes/functions.php');

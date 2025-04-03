@@ -3,7 +3,7 @@
     $timeStart = microtime(true); 
 
     // Site auditing action
-    $action = 'SSSCO New Uploads';
+    $action = 'mds_sssco New Uploads';
 
     // include required files
     include('../includes/functions.php');

@@ -9,7 +9,7 @@
     $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'READS New Uploads';
+    $action = 'mds_unpair New Uploads';
 
     // include required files
     include('../includes/functions.php');

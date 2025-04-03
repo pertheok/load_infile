@@ -9,7 +9,7 @@
    $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'MDPID New Uploads';
+    $action = 'mds_mdpid New Uploads';
 
     // include required files
     include('../includes/functions.php');

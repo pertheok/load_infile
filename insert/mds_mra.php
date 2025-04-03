@@ -9,7 +9,7 @@
    $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'MNETS New Uploads';
+    $action = 'mds_mra New Uploads';
 
     // include required files
     include('../includes/functions.php');

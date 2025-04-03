@@ -9,7 +9,7 @@
    $timeStart = microtime(true);
 
     // Site auditing action
-    $action = 'SCOT AP METERS New Uploads';
+    $action = 'cma_meter_dc New Uploads';
 
     // include required files
     include('../../includes/functions.php');

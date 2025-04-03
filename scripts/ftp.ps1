@@ -117,31 +117,6 @@ function Sync-Folders
     return $downloadsSorted
 }
 
-# List the files with the keyword from the $dataTypes variable in their filename
-function Get-FilesToCompare
-{
-    param(
-        [object[]] $downloads,
-        [string[]] $keywords
-    )
-
-    $result = @()
-
-    foreach ($path in $downloads)
-    {
-        foreach ($pattern in $keywords)
-        {
-            if ($path -like "*$pattern*")
-            {
-                $result += $path
-                break
-            }
-        }
-    }
-
-    return $result
-}
-
 # Get the file information, such as its parent directory, its filename and what kind of data from the $dataTypes array it's meant to contain
 function Get-DirectoryAndFilename
 {
@@ -176,24 +151,6 @@ function Get-DirectoryAndFilename
     }
 
     return $result
-}
-
-# Get the second most recent upload of the file of the given $dataType
-function Get-PreviousDataSet
-{
-    param(
-        [PSCustomObject] $downloadedFile
-    )
-
-    $wildcard = "*" + $downloadedFile.DataType + "*"
-    # From the provided file object metadata, grab its parent directory and filter it to only show the files that contain the same data type. Then, the object is sorted by the Name property, descending.
-    $allFiles = Get-ChildItem -Path $downloadedFile.Directory -File -Filter $wildcard | Sort-Object Name -Descending
-
-    # Grab the index of the downloaded file from the resulting object
-    $currentIndex = $allFiles | Where-Object { $_.Name -eq $downloadedFile.Filename } | ForEach-Object { $allFiles.IndexOf($_) }
-
-    # Return the next element after the current download's from this array, which is the previous dataset - the current one looked at being the function's argument     
-    return $allFiles[$currentIndex + 1]
 }
 
 # ----- MAIN SCRIPT -----

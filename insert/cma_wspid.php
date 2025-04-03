@@ -3,7 +3,7 @@
     $timeStart = microtime(true); 
 
     // Site auditing action
-    $action = 'SCOT SWAPPED DISC READS New Uploads';
+    $action = 'cma_wspid New Uploads';
 
     // include required files
     include('../../includes/functions.php');

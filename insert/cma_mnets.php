@@ -3,7 +3,7 @@
     $timeStart = microtime(true); 
 
     // Site auditing action
-    $action = 'SCOT METER NETWORKS New Uploads';
+    $action = 'cma_mnets New Uploads';
 
     // include required files
     include('../../includes/functions.php');
