@@ -167,7 +167,7 @@ if ($downloadedItems.Count -gt 0)
 
     "[$((Get-Date).ToString())] -----MDS DATA SETS-----" | Out-File -FilePath $logFile -Append
 
-    $fileData = Get-DirectoryAndFilename -filepaths $downloadedItemsToCompare # <---------------------------------- deleted var
+    $fileData = Get-DirectoryAndFilename -filepaths $downloadedItems
         
         foreach ($file in $fileData)
         {
