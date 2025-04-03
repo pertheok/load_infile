@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_SSPID_SMARTA_R_E20221110_G2022111100';
         $tableName = 'mds_sspids';
-        $importType = 'MDS_SSPIDS';
+        $importType = 'mds_sspids';
         $dataset = array(
             'spid',
             'wholesalerID',

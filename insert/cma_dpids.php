@@ -15,9 +15,9 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X34DPIDS_20230214';
-        $tableName = 'scot_dpids';
-        $importType = 'scot_dpids';
-        $dataset = array(
+        $tableName = 'cma_dpids';
+        $importType = 'cma_dpids';
+        $dataset = [
             'D6001DPID',
             'D2001SPID',
             'D6003CDV',
@@ -48,7 +48,7 @@
             'INCODE',
             'D2027CustomerName',
             'D4001OrgId',
-        );        
+        ];        
 
         // Insert to MDS 
         mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, '|');

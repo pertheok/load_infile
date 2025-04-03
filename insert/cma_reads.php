@@ -21,8 +21,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X35ACTIVE_METER_READS_20230511';
-        $tableName = 'scot_amreads';
-        $importType = 'scot_amreads';
+        $tableName = 'cma_reads';
+        $importType = 'cma_reads';
         $dataset = array(
             'D2001SPID', 
             'D3001MeterId', 

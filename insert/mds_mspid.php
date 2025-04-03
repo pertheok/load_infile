@@ -21,8 +21,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_MNETS_SMARTA_R_E20230510_G2023051101';
-        $tableName = 'mds_mnets';
-        $importType = 'MDS_MNETS';
+        $tableName = 'mds_mspid';
+        $importType = 'mds_mspid';
         $dataset = array(
             'meterManufacturer',
             'manufacturerMeterSerialNumber',

@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_DCHVL_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_dchvl';
-        $importType = 'MDS_DCHVL';
+        $importType = 'mds_dchvl';
         $dataset = array(
             'dpid',
             'spid',

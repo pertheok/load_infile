@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_MNETS_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_mnets';
-        $importType = 'MDS_MNETS';
+        $importType = 'mds_mnets';
         $dataset = array(
             'spid',
             'mainMeterManufacturer',

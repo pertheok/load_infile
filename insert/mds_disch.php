@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_DISCH_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_disch';
-        $importType = 'MDS_DISCH';
+        $importType = 'mds_disch';
         $dataset = array(
             'dpid',
             'spid',

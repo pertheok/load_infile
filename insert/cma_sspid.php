@@ -15,8 +15,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X32SSPID_20230214';
-        $tableName = 'scot_sspid';
-        $importType = 'scot_sspid';
+        $tableName = 'cma_sspid';
+        $importType = 'cma_sspid';
         $dataset = array(
             'D2001SPID', 
             'D2002ServiceCategory',

@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_DPIDS_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_dpids';
-        $importType = 'MDS_DPIDS';
+        $importType = 'mds_dpids';
         $dataset = array(
             'spid',
             'dpid',

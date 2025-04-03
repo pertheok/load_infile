@@ -21,8 +21,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X33ACTIVE_PENDING_METERS_20230214';
-        $tableName = 'scot_apmeters';
-        $importType = 'scot_apmeters';
+        $tableName = 'cma_meter';
+        $importType = 'cma_meter';
         $dataset = array(
             'D3001MeterId', 
             'D2001SPID', 

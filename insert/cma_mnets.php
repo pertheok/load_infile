@@ -15,8 +15,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X36METER_NETWORKS_20230214';
-        $tableName = 'scot_meter_networks';
-        $importType = 'scot_meter_networks';
+        $tableName = 'cma_mnets';
+        $importType = 'cma_mnets';
         $dataset = array(
             'D2035MainSPID', 
             'D3027MainMeterID', 

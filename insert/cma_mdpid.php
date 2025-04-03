@@ -15,8 +15,8 @@
 
         //$fileName = $_GET['filename'];
         $fileName = 'X37METER_DPID_ASSOCIATIONS_20230214';
-        $tableName = 'scot_meter_dpid_assoc';
-        $importType = 'scot_meter_dpid_assoc';
+        $tableName = 'cma_mdpid';
+        $importType = 'cma_mdpid';
         $dataset = array(
             'D2001SPID',
             'D6001DPID',

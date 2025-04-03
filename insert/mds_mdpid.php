@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_MDPID_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_mdpid';
-        $importType = 'MDS_MDPID';
+        $importType = 'mds_mdpid';
         $dataset = array(
             'meterManufacturer',
             'meterSerialNumber',

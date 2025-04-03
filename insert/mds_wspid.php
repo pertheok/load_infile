@@ -22,7 +22,7 @@
         //$fileName = $_GET['filename'];
         $fileName = 'MDS_WSPID_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_wspid';
-        $importType = 'MDS_WSPIDS';
+        $importType = 'mds_wspid';
         $dataset = array(
             'spid',
             'wholesalerID',
