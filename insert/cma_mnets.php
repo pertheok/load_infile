@@ -18,7 +18,11 @@
         $tableName = 'scot_meter_networks';
         $importType = 'scot_meter_networks';
         $dataset = array(
-            'MainSPID', 'MainMeterID', 'SubSPID', 'SubMeterID', 'EffectiveFrom'
+            'D2035MainSPID', 
+            'D3027MainMeterID', 
+            'D2036SubSPID', 
+            'D3006SubMeterID', 
+            'D4006EffectiveFrom'
         );        
 
         // Insert to MDS 

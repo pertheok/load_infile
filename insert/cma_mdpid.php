@@ -18,7 +18,11 @@
         $tableName = 'scot_meter_dpid_assoc';
         $importType = 'scot_meter_dpid_assoc';
         $dataset = array(
-            'SPID', 'DPID', 'MeterID', 'MDVol', 'EffectiveFrom'
+            'D2001SPID',
+            'D6001DPID',
+            'D3001MeterId',
+            'D3024MDVol',
+            'D4006EffectiveFrom',
         );        
 
         // Insert to MDS 

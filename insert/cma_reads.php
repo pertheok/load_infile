@@ -24,14 +24,14 @@
         $tableName = 'scot_amreads';
         $importType = 'scot_amreads';
         $dataset = array(
-            'SPID', 
-            'MeterId', 
-            'MeterReadDate', 
-            'MeterRead', 
-            'MeterReadType', 
-            'SReadReasonCode', 
-            'RolloverIndicator', 
-            'RolloverFlag'
+            'D2001SPID', 
+            'D3001MeterId', 
+            'D3009MeterReadDate', 
+            'D3008MeterRead', 
+            'D3010MeterReadType', 
+            'D3028SReadReasonCode', 
+            'D3020RolloverIndicator', 
+            'D3021RolloverFlag'
         );        
 
         // Insert to MDS 
