@@ -14,10 +14,6 @@ $marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open
 $marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_market_message.txt"
 $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_market_message.txt"
 
-# Specify the delimiter and the header row in the csv files used for comparison
-$compCsvDelimiter = ','
-$compCsvheader = 1
-
 # Session log is stored here
 $logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
 
@@ -172,6 +168,34 @@ if ($downloadedItems.Count -gt 0)
         foreach ($file in $fileData)
         {
             $downloadedFilePath = "$($file.Directory)\$($file.Filename)"
+            $phpInsert = ""
+
+            switch($file.DataType) {
+
+                "DCHVL" { $phpInsert = "mds_dchvl"; break }
+                "DISCH" { $phpInsert = "mds_disch"; break }
+                "DPIDS" { $phpInsert = "mds_dpids"; break }
+                "ERRTRAN" { $phpInsert = "mds_errtran"; break }
+                "LGUNR" { $phpInsert = "mds_lgunr"; break }
+                "MDPID" { $phpInsert = "mds_mdpid"; break }
+                "METER" { $phpInsert = "mds_meter"; break }
+                "MNETS" { $phpInsert = "mds_mnets"; break }
+                "MRA" { $phpInsert = "mds_mra"; break }
+                # "msg" { $phpInsert = "mds_dchvl"; break }
+                "MSPID" { $phpInsert = "mds_mspid"; break }
+                "NAPS" { $phpInsert = "mds_naps"; break }
+                "READS" { $phpInsert = "mds_reads"; break }
+                "SSPID" { $phpInsert = "mds_sspids"; break }
+                "SSSCO" { $phpInsert = "mds_sssco"; break }
+                "TEADJ" { $phpInsert = "mds_teadj"; break }
+                "TRCNCL" { $phpInsert = "mds_trcncl"; break }
+                "TRIF" { $phpInsert = "mds_tariff"; break }
+                "UNPAIR" { $phpInsert = "mds_unpair"; break }
+                "VLADJ" { $phpInsert = "mds_vladj"; break }
+                "WSPID" { $phpInsert = "mds_wspid"; break }
+                "WSSCO" { $phpInsert = "mds_wssco"; break }
+
+            }
 
             # If file is a market message, it requires extracting the .gz contents, reading the XML data and inserting it into the designated table
             if($file.DataType -eq "msg")
@@ -184,45 +208,10 @@ if ($downloadedItems.Count -gt 0)
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
             else 
-            {
-                # Handle the edge cases - data types that does no follow either a common naming convention (5 char string) and/or common table name convention (named as mds_*data type*)
-                if ($file.DataType -eq "TRIF")
-                {
-                    "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the tariff table." | Out-File -FilePath $logFile -Append
-
-                    Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "tariff" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
-
-                    "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-                    
-                    continue
-                }
-
-                if ($file.DataType -eq "SSPID")
-                {
-                    "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the sspids table." | Out-File -FilePath $logFile -Append
-
-                    Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "sspids" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
-
-                    "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-                    
-                    continue
-                }
-                    
+            {                    
                 "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the $($file.DataType) table." | Out-File -FilePath $logFile -Append
 
                 Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "$($file.DataType)" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
-
-                "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
-
-                # Append to the log based on what was returned by the python script
-                if ($LASTEXITCODE -ne 0)
-                {
-                    "[$((Get-Date).ToString())] Unique rows have been saved to $($file.Directory)\differences\unique_$($file.Filename)" | Out-File -FilePath $logFile -Append
-                }
-                else 
-                {
-                    "[$((Get-Date).ToString())] No differences were found between the files" | Out-File -FilePath $logFile -Append
-                }
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
