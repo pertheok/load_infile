@@ -14,7 +14,7 @@
                     " . $dataset . "
                 )";
 
-        $pdo->exec("TRUNCATE TABLE $tableName"); 
+        $pdo->exec("TRUNCATE TABLE $tableName");
         $pdo->exec($query);
 
         echo '<p>Inserted to ' . $tableName . '</p>';
