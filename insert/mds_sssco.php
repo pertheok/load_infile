@@ -31,7 +31,7 @@
             'assessedSewerageSpecialAgreementFactor',
             'assessedSewerageSpecialAgreementReference',
             'unmeasuredSewerageTariffCode',
-            'unmeasuredSewerageSpecialAgreementFlagcontract',
+            'unmeasuredSewerageSpecialAgreementFlag',
             'unmeasuredSewerageSpecialAgreementFactor',
             'unmeasuredSewerageSpecialAgreementReference',
             'unmeasuredItemsTypeACount',
@@ -61,7 +61,7 @@
             'surfaceWaterSpecialAgreementReference',
             'highwayDrainageTariffCode',
             'surfaceArea',
-            'communityConcessionFlag',
+            'communityConcessionFlag1',
             'highwayDrainageWaterSpecialAgreementFlag',
             'highwayDrainageWaterSpecialAgreementFactor',
             'highwayDrainageWaterSpecialAgreementReference'
