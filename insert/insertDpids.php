@@ -1,0 +1,73 @@
+<?php
+    // Display errors
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
+    // Starts script timer
+    set_time_limit(10000);
+    $timeStart = microtime(true);
+
+    // Site auditing action
+    $action = 'DPIDS New Uploads';
+
+    // include required files
+    include('../includes/functions.php');
+    include('../includes/databaseDev.php');
+    
+    // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
+    try
+    {
+
+        //$fileName = $_GET['filename'];
+        $fileName = 'MDS_DPIDS_SMARTA_R_E20230510_G2023051101';
+        $tableName = 'mds_dpids';
+        $importType = 'MDS_DPIDS';
+        $dataset = array(
+            'sPID',
+            'dPID',
+            'tradeEffluentTariffCode',
+            'tradeEffluentTariffBand',
+            'chemicalOxygenDemand',
+            'suspendedSolidsContent',
+            'chargingStrengthMethodology',
+            'ammoniacalNitrogenContent',
+            'tradeEffluentComponentXcontent',
+            'tradeEffluentComponentYcontent',
+            'tradeEffluentComponentZcontent',
+            'sewerageVolumeAdjustmentMethod',
+            'primaryTreatmentIndicator',
+            'marineTreatmentIndicator',
+            'biologicalTreatmentIndicator',
+            'sludgeTreatmentIndicator',
+            'ammoniaTreatmentIndicator',
+            'tradeEffluentComponentXTreatmentIndicator',
+            'tradeEffluentComponentYTreatmentIndicator',
+            'tradeEffluentComponentZTreatmentIndicator',   
+            'chargeableAmmoniacalNitrogenload',
+            'chargeableDailyVolume',
+            'chargeableChemicalOxygenDemandLoad',
+            'chargeableSuspendedSolidsLoad',
+            'tradeEffluentComponentXDemandload',
+            'tradeEffluentComponentYDemandload',
+            'tradeEffluentComponentZDemandload',
+            'fixedAllowance',
+            'percentageAllowance',
+            'domesticAllowance',
+            'seasonalFactor',
+            'dischargePointSpecialAgreementFlag',
+            'dischargePointSpecialAgreementFactor',
+            'dischargePointSpecialAgreementReference'
+        );        
+
+        // Insert to MDS 
+        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset);
+       
+    } catch(PDOException $e) {
+
+        echo 'DB load error: ' . $e->getMessage();
+
+    }
+
+    include('../includes/pageAudit.php');
+?>
