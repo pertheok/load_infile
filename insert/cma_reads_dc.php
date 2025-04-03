@@ -18,7 +18,7 @@
     // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
     try
     {
-        $fileName = 'X35ACTIVE_METER_READS_20230511';
+        $filePath = $argv[1];
         $tableName = 'cma_reads_dc';
         $dataset = array(
             'D2001SPID', 
@@ -32,7 +32,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $dataset);
+        mdsInsert($pdo, $filePath, $tableName, $dataset);
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

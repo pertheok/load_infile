@@ -18,7 +18,7 @@
     // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
     try
     {
-        $fileName = 'MDS_SSPID_SMARTA_R_E20221110_G2022111100';
+        $filePath = $argv[1];
         $tableName = 'mds_sspids';
         $dataset = array(
             'spid',
@@ -66,7 +66,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $dataset);
+        mdsInsert($pdo, $filePath, $tableName, $dataset);
 
         
     } catch(PDOException $e) {

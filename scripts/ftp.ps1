@@ -181,7 +181,6 @@ if ($downloadedItems.Count -gt 0)
                 "METER" { $phpInsert = "mds_meter"; break }
                 "MNETS" { $phpInsert = "mds_mnets"; break }
                 "MRA" { $phpInsert = "mds_mra"; break }
-                # "msg" { $phpInsert = "mds_dchvl"; break }
                 "MSPID" { $phpInsert = "mds_mspid"; break }
                 "NAPS" { $phpInsert = "mds_naps"; break }
                 "READS" { $phpInsert = "mds_reads"; break }
@@ -201,7 +200,7 @@ if ($downloadedItems.Count -gt 0)
             if($file.DataType -eq "msg")
             {
 
-                "[$((Get-Date).ToString())] Writing data from the market messages file $($file.Filename) to the marketmessages table." | Out-File -FilePath $logFile -Append
+                "[$((Get-Date).ToString())] Writing data from the market messages file $($file.Filename) to the mds_marketmessages table." | Out-File -FilePath $logFile -Append
 
                 Start-Process python -ArgumentList "$marketMessageWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $marketMessageWriteScriptOutputLogPath -RedirectStandardError $marketMessageWriteScriptErrorLogPath
 
@@ -209,9 +208,9 @@ if ($downloadedItems.Count -gt 0)
             }
             else 
             {                    
-                "[$((Get-Date).ToString())] No preceeding file was found. Writing entire contents of $($file.Filename) to the $($file.DataType) table." | Out-File -FilePath $logFile -Append
+                "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
-                Start-Process python -ArgumentList "$writeScriptPath", "$downloadedFilePath", "$($file.DataType)" -Wait -RedirectStandardOutput $writeScriptOutputLogPath -RedirectStandardError $writeScriptErrorLogPath
+                Start-Process php -ArgumentList "../insert/$phpInsert.php", "$downloadedFilePath" -Wait
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
