@@ -20,7 +20,6 @@
     {
         $fileName = 'MDS_DCHVL_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_lgunr';
-        $importType = 'mds_lgunr';
         $dataset = array(
             'meterManufacturer',
             'manufacturerMeterSerialNumber',
@@ -42,7 +41,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset);
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
 
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

@@ -14,7 +14,6 @@
     {
         $fileName = 'X31WSPID_20230214';
         $tableName = 'cma_wspid';
-        $importType = 'cma_wspid';
         $dataset = array(
             'D2001SPID', 
             'D2002ServiceCategory', 
@@ -61,7 +60,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, '|');
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

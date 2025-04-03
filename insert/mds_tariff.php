@@ -20,7 +20,6 @@
     {
         $fileName = 'MDS_READS_SMARTA_R_E20230510_G2023051101';
         $tableName = 'mds_tariff';
-        $importType = 'mds_tariff';
         $dataset = array(
             'WholesalerID',
             'TariffCode',
@@ -41,7 +40,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset);
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

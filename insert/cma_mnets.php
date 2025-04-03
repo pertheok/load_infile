@@ -14,7 +14,6 @@
     {
         $fileName = 'X36METER_NETWORKS_20230214';
         $tableName = 'cma_mnets';
-        $importType = 'cma_mnets';
         $dataset = array(
             'D2035MainSPID', 
             'D3027MainMeterID', 
@@ -24,7 +23,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, '|');
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

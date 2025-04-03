@@ -20,7 +20,6 @@
     {
         $fileName = 'X35ACTIVE_METER_READS_20230511';
         $tableName = 'cma_reads_dc';
-        $importType = 'cma_reads_dc';
         $dataset = array(
             'D2001SPID', 
             'D3001MeterId', 
@@ -33,7 +32,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset, '|');
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();

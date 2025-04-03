@@ -20,7 +20,6 @@
     {
         $fileName = 'MDS_SSPID_SMARTA_R_E20221110_G2022111100';
         $tableName = 'mds_sspids';
-        $importType = 'mds_sspids';
         $dataset = array(
             'spid',
             'wholesalerID',
@@ -67,7 +66,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset);
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
 
         
     } catch(PDOException $e) {

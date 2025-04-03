@@ -14,7 +14,6 @@
     {
         $fileName = 'MDS_SSSCO_SMARTA_R_E20230817_G2023081801';
         $tableName = 'mds_sssco';
-        $importType = 'mds_sssco';
         $dataset = array(
             'spid',
             'meteredSewerageTariffCode',
@@ -67,7 +66,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $fileName, $tableName, $importType, $dataset);
+        mdsInsert($pdo, $fileName, $tableName, $dataset);
 
 
        
