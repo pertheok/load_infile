@@ -3,10 +3,10 @@
 	
 	// Database Connection*/
 	
-	define('DB_HOST', 'wcrm-mds-dev.mariadb.database.azure.com');
-	define('DB_USER', 'chaarmadminuser@wcrm-mds-dev');
-	define('DB_PASS', 'vxTWANgZx4u^#Bg$');
-	define('DB_NAME', 'mds');
+	define('DB_HOST', 'get_from_env');
+	define('DB_USER', 'get_from_env');
+	define('DB_PASS', 'get_from_env');
+	define('DB_DATABASE', 'mds-test');
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
 

@@ -9,13 +9,8 @@ $localPath = '\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\'
 
 # Locations of the helper scripts used here
 
-# Data comparison
-$comparisonScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\compare_csvs.py'
-$comparisonScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_comparison.txt"
-$comparisonScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_comparison.txt"
-
 # Data insert
-$writeScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\write_data.py'
+$writeScriptPath
 $writeScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_write.txt"
 $writeScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_write.txt"
 
