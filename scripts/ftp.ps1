@@ -14,6 +14,11 @@ $marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open
 $marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_market_message.txt"
 $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_market_message.txt"
 
+# Settlements
+$settlementsWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_zip_settlements.py'
+$settlementsWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_settlements.txt"
+$settlementsWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_settlements.txt"
+
 # Session log is stored here
 $logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
 
@@ -31,7 +36,12 @@ $dataTypes = @(
     "msg",
     "MSPID",
     "NAPS",
+    "P1",
+    "R1",
+    "R2",
+    "R3",
     "READS",
+    "RF",
     "SSPID",
     "SSSCO",
     "TEADJ",
@@ -183,7 +193,12 @@ if ($downloadedItems.Count -gt 0)
                 "MRA" { $phpInsert = "mds_mra"; break }
                 "MSPID" { $phpInsert = "mds_mspid"; break }
                 "NAPS" { $phpInsert = "mds_naps"; break }
+                "P1" { $phpInsert = "mds_settlements"; break }
+                "R1" { $phpInsert = "mds_settlements"; break }
+                "R2" { $phpInsert = "mds_settlements"; break }
+                "R3" { $phpInsert = "mds_settlements"; break }
                 "READS" { $phpInsert = "mds_reads"; break }
+                "RF" { $phpInsert = "mds_settlements"; break }
                 "SSPID" { $phpInsert = "mds_sspids"; break }
                 "SSSCO" { $phpInsert = "mds_sssco"; break }
                 "TEADJ" { $phpInsert = "mds_teadj"; break }
@@ -199,10 +214,16 @@ if ($downloadedItems.Count -gt 0)
             # If file is a market message, it requires extracting the .gz contents, reading the XML data and inserting it into the designated table
             if($file.DataType -eq "msg")
             {
-
                 "[$((Get-Date).ToString())] Writing data from the market messages file $($file.Filename) to the mds_marketmessages table." | Out-File -FilePath $logFile -Append
 
                 Start-Process python -ArgumentList "$marketMessageWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $marketMessageWriteScriptOutputLogPath -RedirectStandardError $marketMessageWriteScriptErrorLogPath
+
+                "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+            }
+            elseif ($file.DataType -eq "P1" -or $file.DataType -eq "R1" -or $file.DataType -eq "R2" -or $file.DataType -eq "R3" -or $file.DataType -eq "RF") {
+                "[$((Get-Date).ToString())] Writing data from the settlements file $($file.Filename) to the mds_settlements table." | Out-File -FilePath $logFile -Append
+
+                Start-Process python -ArgumentList "$settlementsWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $settlementsWriteScriptOutputLogPath -RedirectStandardError $settlementsWriteScriptErrorLogPath
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
