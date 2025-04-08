@@ -2,9 +2,9 @@
 	
 	// Database Connection
 	
-	define('DB_HOST', 'get_from_env');
-	define('DB_USER', 'get_from_env');
-	define('DB_PASS', 'get_from_env');
+	define('DB_HOST', 'db-mysql-mds-live-smarta-do-user-14108508-0.b.db.ondigitalocean.com');
+	define('DB_USER', 'doadmin');
+	define('DB_PASS', 'AVNS_FzyD2YkqUcoZUepHZbj');
 	define('DB_DATABASE', 'mds-test');
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
