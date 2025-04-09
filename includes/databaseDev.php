@@ -2,10 +2,10 @@
 	
 	// Database Connection
 	
-	define('DB_HOST', 'db-mysql-mds-live-smarta-do-user-14108508-0.b.db.ondigitalocean.com');
-	define('DB_USER', 'doadmin');
-	define('DB_PASS', 'AVNS_FzyD2YkqUcoZUepHZbj');
-	define('DB_DATABASE', 'mds-test');
+	define('DB_HOST', 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com:3306');
+	define('DB_USER', 'admin');
+	define('DB_PASS', 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc');
+	define('DB_NAME', 'mds-test');
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
 

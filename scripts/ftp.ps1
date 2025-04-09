@@ -19,6 +19,12 @@ $settlementsWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_z
 $settlementsWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_settlements.txt"
 $settlementsWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_settlements.txt"
 
+# PHP inserts directory
+$phpScriptsDir = 'C:\laragon\www\CMOS-connect\scripts\load_infile\insert';
+
+# PHP executable location
+$phpExecLocation = "C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php.exe"
+
 # Session log is stored here
 $logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
 
@@ -231,7 +237,19 @@ if ($downloadedItems.Count -gt 0)
             {                    
                 "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
-                Start-Process php -ArgumentList "../insert/$phpInsert.php", "$downloadedFilePath" -Wait
+                $phpOutputLog = "C:\laragon\www\CMOS-connect\scripts\logs\php_output_$($phpInsert).txt"
+                $phpErrorLog = "C:\laragon\www\CMOS-connect\scripts\logs\php_error_$($phpInsert).txt"
+
+                Start-Process $phpExecLocation `
+                    -ArgumentList "$($phpScriptsDir)\$($phpInsert).php", "$downloadedFilePath" `
+                    -WorkingDirectory $phpScriptsDir `
+                    -Wait `
+                    -RedirectStandardOutput $phpOutputLog `
+                    -RedirectStandardError $phpErrorLog
+
+                # Log that the PHP script was run and where logs are stored
+                "[$((Get-Date).ToString())] Ran PHP script for $($phpInsert). Output: $phpOutputLog | Error: $phpErrorLog" | Out-File -FilePath $logFile -Append
+
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }

@@ -4,6 +4,8 @@
     {
         // split by commas
         $dataset = implode(',', $dataset);
+		
+		$filePath = addslashes($filePath);
 
         // Insert to the apporpriate new upload table and the archive table        
         $query = "LOAD DATA LOCAL INFILE '" . $filePath  . "' INTO TABLE " . $tableName . "
