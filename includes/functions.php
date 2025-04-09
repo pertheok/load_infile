@@ -2,24 +2,29 @@
 
     function mdsInsert($pdo, $filePath, $tableName, $dataset, $separator = ',', $lines = 2) 
     {
-        // split by commas
-        $dataset = implode(',', $dataset);
-		
-		$filePath = addslashes($filePath);
+        $dataset = array_map('trim', $dataset);
+        $columns = [];
+        $setClauses = [];
 
-        // Insert to the apporpriate new upload table and the archive table        
-        $query = "LOAD DATA LOCAL INFILE '" . $filePath  . "' INTO TABLE " . $tableName . "
-                FIELDS TERMINATED BY '" . $separator . "' OPTIONALLY ENCLOSED BY '\"' 
-                LINES TERMINATED BY '\\n' 
-                IGNORE " . $lines . " LINES 
-                (
-                    " . $dataset . "
-                )";
+        foreach ($dataset as $column) {
+            $columns[] = "@{$column}";
+            $setClauses[] = "{$column} = NULLIF(@{$column}, '')";
+        }
+
+        $columnList = implode(', ', $columns);
+        $setClause = implode(', ', $setClauses);
+
+        $filePath = addslashes($filePath);
+
+        $query = "LOAD DATA LOCAL INFILE '" . $filePath . "' INTO TABLE " . $tableName . "
+            FIELDS TERMINATED BY '" . $separator . "' OPTIONALLY ENCLOSED BY '\"' 
+            LINES TERMINATED BY '\\n' 
+            IGNORE " . $lines . " LINES 
+            (" . $columnList . ") 
+            SET " . $setClause;
 
         $pdo->exec("TRUNCATE TABLE $tableName");
         $pdo->exec($query);
-
-        echo '<p>Inserted to ' . $tableName . '</p>';
 
         return true;
     }
