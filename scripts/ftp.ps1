@@ -15,7 +15,7 @@ $marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\lo
 $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_market_message.txt"
 
 # Settlements
-$settlementsWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_zip_settlements.py'
+$settlementsWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\python\open_zip_settlements.py'
 $settlementsWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_settlements.txt"
 $settlementsWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_settlements.txt"
 

@@ -16,6 +16,7 @@ def open_zip_settlements(filepath, destination):
         zip_ref.extractall(destination)
         print(f"Extracted all files to: {destination}")
         zipped_filenames = zip_ref.namelist()
+        print(zipped_filenames)
         
         read_settlements(zipped_filenames)
 
