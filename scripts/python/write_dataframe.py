@@ -6,7 +6,7 @@ def write_dataframe(dataframe, table_name):
     username = 'admin'
     password = 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc'
     host = 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com'
-    database_name = 'mds-test'
+    database_name = 'mds-current'
     port = '3306'
 
     # Create a connection string for MySQL

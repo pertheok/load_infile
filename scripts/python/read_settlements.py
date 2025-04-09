@@ -11,7 +11,7 @@ def read_settlements(csv_file_paths):
         try:
             full_path = os.path.join(BASE_DIR, file_name)
             print(full_path)
-            df = pd.read_csv(full_path)
+            df = pd.read_csv(full_path, dtype='object')
             df.columns = convert_column_names(df.columns)
             df['sourceFileName'] = file_name
             dataframes.append((os.path.basename(full_path), df))
