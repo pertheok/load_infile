@@ -10,6 +10,7 @@ def read_settlements(csv_file_paths):
     for file_name in csv_file_paths:
         try:
             full_path = os.path.join(BASE_DIR, file_name)
+            print(full_path)
             df = pd.read_csv(full_path)
             df.columns = convert_column_names(df.columns)
             df['sourceFileName'] = file_name
@@ -17,4 +18,11 @@ def read_settlements(csv_file_paths):
         except Exception as e:
             print(f"Failed to read {full_path}: {e}")
     
-    write_dataframe(dataframes, 'settlements')
+    # Filter out empty DataFrames before concat
+    all_dfs = [df for _, df in dataframes if not df.empty]
+
+    if all_dfs:  # only concat if there's something to concat
+        combined_df = pd.concat(all_dfs, ignore_index=True)
+        write_dataframe(combined_df, 'settlements')
+    else:
+        print("No valid dataframes to concatenate.")
