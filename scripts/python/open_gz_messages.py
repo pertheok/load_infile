@@ -4,7 +4,7 @@ import os
 import re
 import pandas as pd
 from read_xml_messages import read_xml_messages
-from write_xml_messages import write_xml_messages
+from write_dataframe import write_dataframe
 from convert_column_names import convert_column_names
 
 filepath = sys.argv[1]
@@ -52,6 +52,6 @@ def open_gz_messages(messages_file_path):
     df.columns = convert_column_names(df.columns)
 
     # Write the dataframe into the database
-    write_xml_messages(df)
+    write_dataframe(df, 'marketmessages')
 
 open_gz_messages(filepath)

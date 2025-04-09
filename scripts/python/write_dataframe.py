@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 
-def write_xml_messages(dataframe):
+def write_dataframe(dataframe, table_name):
 
     # MySQL database connection information
     username = 'doadmin'
@@ -8,7 +8,6 @@ def write_xml_messages(dataframe):
     host = 'db-mysql-mds-live-smarta-do-user-14108508-0.b.db.ondigitalocean.com'
     database_name = 'mds-current'
     port = '25060'
-    table_name = 'marketmessages'
 
     # Create a connection string for MySQL
     connection_str = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_name}"
