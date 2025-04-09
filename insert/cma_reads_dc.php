@@ -13,7 +13,7 @@
 
     // include required files
     include('../../includes/functions.php');
-    include('../includes/databaseDev.php');
+    include('../includes/database.php');
     
     // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
     try
