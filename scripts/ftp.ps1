@@ -10,9 +10,9 @@ $localPath = '\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\'
 # Locations of the helper scripts used here
 
 # Market messages
-$marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_gz_messages.py'
-$marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_market_message.txt"
-$marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_market_message.txt"
+$marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\load_infile\python\open_gz_messages.py'
+$marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\logs\python_output_market_message.txt"
+$marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\load_infile\logs\python_error_market_message.txt"
 
 # Settlements
 $settlementsWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\python\open_zip_settlements.py'
