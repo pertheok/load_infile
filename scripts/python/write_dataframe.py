@@ -9,6 +9,14 @@ def write_dataframe(dataframe, table_name):
     database_name = 'mds-current'
     port = '3306'
 
+    # Local MySQL database connection information
+    # username = 'doadmin'
+    # password = 'AVNS_FzyD2YkqUcoZUepHZbj'
+    # host = 'db-mysql-mds-live-smarta-do-user-14108508-0.b.db.ondigitalocean.com'
+    # database_name = 'mds-current'
+    # port = '25060'
+
+
     # Create a connection string for MySQL
     connection_str = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_name}"
 

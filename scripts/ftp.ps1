@@ -11,6 +11,7 @@ $localPath = '\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\'
 
 # Market messages
 $marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\python\open_gz_messages.py'
+$marketMessageXlsxWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\python\open_xlsx_messages.py'
 $marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\load_infile\scripts\logs\python_output_market_message.txt"
 $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\load_infile\logs\python_error_market_message.txt"
 
@@ -230,6 +231,14 @@ if ($downloadedItems.Count -gt 0)
                 "[$((Get-Date).ToString())] Writing data from the settlements file $($file.Filename) to the mds_settlements table." | Out-File -FilePath $logFile -Append
 
                 Start-Process python -ArgumentList "$settlementsWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $settlementsWriteScriptOutputLogPath -RedirectStandardError $settlementsWriteScriptErrorLogPath
+
+                "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+            }
+            elseif($file -like "*.xlsx") # for extracting reads from xlsx market message files
+            {
+                "[$((Get-Date).ToString())] Writing data from the market messages file $($file.Filename) to the mds_marketmessages table." | Out-File -FilePath $logFile -Append
+
+                Start-Process python -ArgumentList "$marketMessageXlsxWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $marketMessageWriteScriptOutputLogPath -RedirectStandardError $marketMessageWriteScriptErrorLogPath
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
