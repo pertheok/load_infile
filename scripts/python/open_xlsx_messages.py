@@ -5,11 +5,10 @@ from read_xlsx_xml_messages import read_xlsx_xml_messages
 from convert_column_names import convert_column_names
 from write_dataframe import write_dataframe
 
-filepath = r"C:\Users\Jakub\Downloads\01.10.2025 - 03.11.2025.xlsx"
-# filepath = sys.argv[1]
+# filepath = r"C:\Users\Jakub\Downloads\01.10.2025 - 03.11.2025.xlsx"
+filepath = sys.argv[1]
 
 def open_xlsx_messages(messages_file_path, output_csv_path=None):
-    message_filename = os.path.basename(messages_file_path)
 
     # Read Excel
     df_in = pd.read_excel(messages_file_path)
@@ -32,9 +31,6 @@ def open_xlsx_messages(messages_file_path, output_csv_path=None):
     if df.empty:
         print("No payload messages found")
         return df
-
-    # Add source filename
-    df['sourceFileName'] = message_filename
 
     # Rename meterRead → meterReadValue
     if 'MeterRead' in df.columns:
