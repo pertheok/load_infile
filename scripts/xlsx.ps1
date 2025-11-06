@@ -5,7 +5,7 @@ $marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\loa
 $logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
 
 $watch = New-Object System.IO.FileSystemWatcher
-$watch.Path = "C:\SMARTA-XLSX\"
+$watch.Path = "B:\SMARTA-XLSX\"
 $watch.Filter = "*.xlsx"
 $watch.EnableRaisingEvents = $true
 
