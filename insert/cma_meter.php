@@ -12,8 +12,8 @@
     $action = 'cma_meter New Uploads';
 
     // include required files
-    include('../../includes/functions.php');
-    include('../includes/database.php');
+    include('../includes/functions.php');
+    include('../includes/database-cma.php');
     
     // Using LOAD INFILE we can insert each row from the CSV without having to store in variables we insert directly to the database.
     try
@@ -60,7 +60,7 @@
         );        
 
         // Insert to MDS 
-        mdsInsert($pdo, $filePath, $tableName, $dataset);
+        mdsInsert($pdo, $filePath, $tableName, $dataset, '|');
        
     } catch(PDOException $e) {
         echo 'DB load error: ' . $e->getMessage();
