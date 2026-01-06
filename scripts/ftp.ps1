@@ -1,62 +1,55 @@
+function Import-DotEnv {
+    param (
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    if (-not (Test-Path $Path)) {
+        throw "Env file not found: $Path"
+    }
+
+    Get-Content $Path | ForEach-Object {
+        $_ = $_.Trim()
+
+        if ($_ -and -not $_.StartsWith('#')) {
+            $name, $value = $_ -split '=', 2
+            Set-Variable -Name $name -Value $value -Scope Script
+        }
+    }
+}
+
+Import-DotEnv "C:\laragon\www\CMOS-connect\config\.env"
+
 # Load WinSCP .NET assembly
-Add-Type -Path "C:\Program Files (x86)\WinSCP\WinSCPnet.dll"
+Add-Type -Path $WINSCP_DLL
 
 # ----- OPTIONS -----
 
 # Define the directories - remote will be mirrored locally
-$remotePath = '/SMARTA_R/'
-$localPath = '\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\'
+$remotePath = $REMOTE_PATH
+$localPath = $LOCAL_PATH
 
 # Locations of the helper scripts used here
 
 # Market messages
-$marketMessageWriteScriptPath = 'C:\laragon\www\CMOS-connect\scripts\python\open_gz_messages.py'
-$marketMessageWriteScriptOutputLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_output_market_message.txt"
-$marketMessageWriteScriptErrorLogPath = "C:\laragon\www\CMOS-connect\scripts\logs\python_error_market_message.txt"
+$marketMessageWriteScriptPath = $MARKET_MESSAGE_SCRIPT
+$marketMessageWriteScriptOutputLogPath = $MARKET_MESSAGE_OUT_LOG
+$marketMessageWriteScriptErrorLogPath = $MARKET_MESSAGE_ERR_LOG
 
 # Session log is stored here
-$logFile = "C:\laragon\www\CMOS-connect\scripts\logs\log.txt"
+$logFile = $SESSION_LOG
 
 # Array containing the substrings to search for in the $downloadedItems array
-$dataTypes = @(
-    "DCHVL",    
-    "DISCH",
-    "DPIDS",
-    "ERRTRAN",
-    "LGUNR",
-    "MDPID",
-    "METER",
-    "MNETS",
-    "MRA",
-    "msg",
-    "MSPID",
-    "NAPS",
-    "READS",
-    "SSPID",
-    "SSSCO",
-    "TEADJ",
-    "TRCNCL",
-    "TRIF",
-    "UNPAIR",
-    "WSPID",
-    "WSSCO",
-    "VLADJ"    
-)
-
-# FTP session related variables
-$hostName = "automated.cmosservice.co.uk"
-$userName = "anonymous"
-$certPath = "C:\laragon\www\CMOS-connect\certificates\FTP_Smarta_RT_Portal_1_2025.pfx"
-$certPass = "UWWPOLNGCQGS"
+$dataTypes = $DATA_TYPES -split ','
 
 # Set up session options
 $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
     Protocol = [WinSCP.Protocol]::Ftp
-    HostName = $hostName
-    UserName = $userName
+    HostName = $FTP_HOST
+    UserName = $FTP_USER
     FtpSecure = [WinSCP.FtpSecure]::Explicit
-    TlsClientCertificatePath = $certPath
-    PrivateKeyPassphrase = $certPass
+    TlsClientCertificatePath = $FTP_CERT
+    PrivateKeyPassphrase = $FTP_CERT_PASS
 }
 
 # Set up additional session options
