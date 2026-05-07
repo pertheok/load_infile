@@ -3,10 +3,10 @@
 	
 	// Database Connection*/
 	
-	define('DB_HOST', 'localhost');
-	define('DB_USER', 'root');
-	define('DB_PASS', '');
-	define('DB_NAME', 'smarta-wcrm-crm');
+	define('DB_HOST', 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com');
+	define('DB_USER', 'admin');
+	define('DB_PASS', 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc');
+	define('DB_NAME', 'mds-current');
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
 
