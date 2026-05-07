@@ -18,7 +18,7 @@ function Import-DotEnv {
     }
 }
 
-Import-DotEnv "C:\laragon\www\CMOS-connect\config\.env"
+Import-DotEnv "C:\laragon\www\CMOS-connect\load_infile\config\.env"
 
 # Load WinSCP .NET assembly
 Add-Type -Path $WINSCP_DLL
