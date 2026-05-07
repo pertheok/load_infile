@@ -207,8 +207,10 @@ if ($downloadedItems.Count -gt 0)
             {                    
                 "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
-                Start-Process php -ArgumentList "`"../insert/$phpInsert.php`"", "`"$downloadedFilePath`"" -Wait -RedirectStandardOutput $phpOutputLogPath -RedirectStandardError $phpErrorLogPath
+                $normalizedPath = $downloadedFilePath.Replace('\', '/')
+                $phpOutput = & php "../insert/$phpInsert.php" "$normalizedPath" 2>&1
 
+                "[$((Get-Date).ToString())] PHP Output: $phpOutput" | Out-File -FilePath $logFile -Append
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
         }
