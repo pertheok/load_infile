@@ -36,6 +36,10 @@ $marketMessageWriteScriptPath = $MARKET_MESSAGE_SCRIPT
 $marketMessageWriteScriptOutputLogPath = $MARKET_MESSAGE_OUT_LOG
 $marketMessageWriteScriptErrorLogPath = $MARKET_MESSAGE_ERR_LOG
 
+# Datasets
+$phpOutputLogPath = $PHP_OUT_LOG
+$phpErrorLogPath = $PHP_ERR_LOG
+
 # Session log is stored here
 $logFile = $SESSION_LOG
 
@@ -203,7 +207,7 @@ if ($downloadedItems.Count -gt 0)
             {                    
                 "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
-                Start-Process php -ArgumentList "../insert/$phpInsert.php", "$downloadedFilePath" -Wait
+                Start-Process php -ArgumentList "`"../insert/$phpInsert.php`"", "`"$downloadedFilePath`"" -Wait -RedirectStandardOutput $phpOutputLogPath -RedirectStandardError $phpErrorLogPath
 
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
