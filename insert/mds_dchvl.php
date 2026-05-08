@@ -33,5 +33,4 @@
         echo 'DB load error: ' . $e->getMessage();
     }
 
-    include('../includes/pageAudit.php');
 ?>

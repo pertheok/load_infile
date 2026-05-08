@@ -50,7 +50,6 @@ FTP Server → ftp.ps1 (PowerShell)
 | `scripts/ftp.ps1` | Main orchestrator: syncs FTP, categorises files by data type, routes to handlers, logs everything |
 | `includes/functions.php` | `mdsInsert($pdo, $filePath, $tableName, $dataset, $separator, $lines)` — truncates table then bulk-loads CSV |
 | `includes/database.php` | PDO connection with `LOCAL_INFILE` enabled |
-| `includes/pageAudit.php` | Records script name, action, and execution time to `site_audit` table |
 | `scripts/python/open_gz_messages.py` | Decompresses .gz, extracts XML SOAP messages, delegates to `read_xml_messages.py` + `write_xml_messages.py` |
 | `scripts/python/open_zip_settlements.py` | Unzips settlement archive to `\Settlement\unzipped\`, delegates list of CSVs to `read_settlements.py` |
 | `scripts/python/read_settlements.py` | Reads each extracted settlement CSV, converts column names to camelCase, adds `sourceFileName`, concatenates and calls `write_dataframe.py` |
@@ -66,7 +65,7 @@ All `mds_*.php` scripts follow an identical pattern:
 1. Include `../includes/database.php` and `../includes/functions.php`
 2. Read file path from `$argv[1]`
 3. Define `$tableName` and `$dataset` (ordered column list)
-4. Call `mdsInsert()` then `pageAudit()`
+4. Call `mdsInsert()`
 
 `mdsInsert()` issues `TRUNCATE TABLE` before every load — each run replaces the full table contents.
 
