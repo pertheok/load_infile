@@ -38,12 +38,9 @@ $localPath = $LOCAL_PATH
 
 # Market messages
 $marketMessageWriteScriptPath = $MARKET_MESSAGE_SCRIPT
-$marketMessageWriteScriptOutputLogPath = $MARKET_MESSAGE_OUT_LOG
-$marketMessageWriteScriptErrorLogPath = $MARKET_MESSAGE_ERR_LOG
 
-# Datasets
-$phpOutputLogPath = $PHP_OUT_LOG
-$phpErrorLogPath = $PHP_ERR_LOG
+# Settlements
+$settlementsWriteScriptPath = $SETTLEMENTS_SCRIPT
 
 # Session log is stored here
 $logFile = $SESSION_LOG
@@ -185,7 +182,12 @@ if ($downloadedItems.Count -gt 0)
                 "MRA" { $phpInsert = "mds_mra"; break }
                 "MSPID" { $phpInsert = "mds_mspid"; break }
                 "NAPS" { $phpInsert = "mds_naps"; break }
+                "P1" { $phpInsert = "mds_settlements"; break }
+                "R1" { $phpInsert = "mds_settlements"; break }
+                "R2" { $phpInsert = "mds_settlements"; break }
+                "R3" { $phpInsert = "mds_settlements"; break }
                 "READS" { $phpInsert = "mds_reads"; break }
+                "RF" { $phpInsert = "mds_settlements"; break }
                 "SSPID" { $phpInsert = "mds_sspids"; break }
                 "SSSCO" { $phpInsert = "mds_sssco"; break }
                 "TEADJ" { $phpInsert = "mds_teadj"; break }
@@ -204,17 +206,27 @@ if ($downloadedItems.Count -gt 0)
 
                 "[$((Get-Date).ToString())] Writing data from the market messages file $($file.Filename) to the mds_marketmessages table." | Out-File -FilePath $logFile -Append
 
-                Start-Process python -ArgumentList "$marketMessageWriteScriptPath", "$downloadedFilePath" -Wait -RedirectStandardOutput $marketMessageWriteScriptOutputLogPath -RedirectStandardError $marketMessageWriteScriptErrorLogPath
-
+                $pythonOutput = & python "$marketMessageWriteScriptPath" "$downloadedFilePath" 2>&1
+                "[$((Get-Date).ToString())] Python Output: $pythonOutput" | Out-File -FilePath $logFile -Append
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
             }
-            else 
+            elseif ($file.DataType -eq "P1" -or $file.DataType -eq "R1" -or $file.DataType -eq "R2" -or $file.DataType -eq "R3" -or $file.DataType -eq "RF")
+            {
+                "[$((Get-Date).ToString())] Writing data from the settlements file $($file.Filename) to the mds_settlements table." | Out-File -FilePath $logFile -Append
+
+                $pythonOutput = & python "$settlementsWriteScriptPath" "$downloadedFilePath" 2>&1
+                "[$((Get-Date).ToString())] Python Output: $pythonOutput" | Out-File -FilePath $logFile -Append
+                "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
+            }
+            else
             {                    
                 "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
                 $insertScript = Join-Path $insertDir "$phpInsert.php"
                 $normalizedPath = $downloadedFilePath.Replace('\', '/')
+                Push-Location $insertDir
                 $phpOutput = & php "$insertScript" "$normalizedPath" 2>&1
+                Pop-Location
 
                 "[$((Get-Date).ToString())] PHP Output: $phpOutput" | Out-File -FilePath $logFile -Append
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
