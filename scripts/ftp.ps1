@@ -20,6 +20,11 @@ function Import-DotEnv {
 
 Import-DotEnv "C:\laragon\www\CMOS-connect\load_infile\config\.env"
 
+# Fix the absolute path
+
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$insertDir = Join-Path $scriptDir "..\insert"
+
 # Load WinSCP .NET assembly
 Add-Type -Path $WINSCP_DLL
 
@@ -207,8 +212,9 @@ if ($downloadedItems.Count -gt 0)
             {                    
                 "[$((Get-Date).ToString())] Writing data from the $($file.Filename) file to the $($phpInsert) table." | Out-File -FilePath $logFile -Append
 
+                $insertScript = Join-Path $insertDir "$phpInsert.php"
                 $normalizedPath = $downloadedFilePath.Replace('\', '/')
-                $phpOutput = & php "../insert/$phpInsert.php" "$normalizedPath" 2>&1
+                $phpOutput = & php "$insertScript" "$normalizedPath" 2>&1
 
                 "[$((Get-Date).ToString())] PHP Output: $phpOutput" | Out-File -FilePath $logFile -Append
                 "[$((Get-Date).ToString())] ----------" | Out-File -FilePath $logFile -Append
