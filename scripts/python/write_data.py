@@ -34,9 +34,9 @@ def write_data(csv_data, table_name):
         raise ValueError("CSV file must contain at least one column")
 
     # MySQL database connection information
-    username = 'doadmin'
-    password = 'AVNS_FzyD2YkqUcoZUepHZbj'
-    host = 'db-mysql-mds-live-smarta-do-user-14108508-0.b.db.ondigitalocean.com'
+    username = 'admin'
+    password = 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc'
+    host = 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com'
     database_name = 'mds-current'
     port = '25060'
 
