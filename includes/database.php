@@ -1,16 +1,18 @@
 <?php
 	
 	
-	// Database Connection*/
-	
-	define('DB_HOST', 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com');
-	define('DB_USER', 'admin');
-	define('DB_PASS', 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc');
-	define('DB_NAME', 'mds-current');
+	// Database Connection - credentials come from config/.env
+	require_once __DIR__ . '/env.php';
+
+	define('DB_HOST', env('DB_HOST'));
+	define('DB_PORT', env('DB_PORT', '3306'));
+	define('DB_USER', env('DB_USER'));
+	define('DB_PASS', env('DB_PASS'));
+	define('DB_NAME', env('DB_NAME', 'mds-current'));
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
 
-	$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+	$dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
 	  
 	$opt = [
 	    \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,

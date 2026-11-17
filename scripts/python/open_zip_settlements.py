@@ -1,9 +1,11 @@
 import zipfile
+import os
 import sys
+import load_env  # populates os.environ from config/.env
 from read_settlements import read_settlements
 
 filepath = sys.argv[1]
-destination = r"\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\Settlement\unzipped"
+destination = os.environ['SETTLEMENTS_UNZIP_DIR']
 
 def open_zip_settlements(filepath, destination):
 

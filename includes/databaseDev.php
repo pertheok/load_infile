@@ -1,15 +1,17 @@
 <?php
 	
-	// Database Connection
-	
-	define('DB_HOST', 'get_from_env');
-	define('DB_USER', 'get_from_env');
-	define('DB_PASS', 'get_from_env');
-	define('DB_DATABASE', 'mds-test');
+	// Database Connection - credentials come from config/.env
+	require_once __DIR__ . '/env.php';
+
+	define('DB_HOST', env('DEV_DB_HOST'));
+	define('DB_PORT', env('DEV_DB_PORT', '3306'));
+	define('DB_USER', env('DEV_DB_USER'));
+	define('DB_PASS', env('DEV_DB_PASS'));
+	define('DB_NAME', env('DEV_DB_NAME', 'mds-test'));
 	 // Character set
 	define('DB_CHARSET', 'utf8mb4');
 
-	$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
+	$dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
 	  
 	$opt = [
 	    \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,

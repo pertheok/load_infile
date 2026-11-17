@@ -32,11 +32,11 @@ Two naming exceptions: `TRIF` → table `mds_tariff`, `SSPID` → table `mds_ssp
 
 ### Databases
 
-Two MySQL targets, both using database `mds-current` (credentials are hardcoded per-file,
-not pulled from `.env`):
+All connection details live in `config/.env` (see `config/.env.example`):
 
-- **AWS RDS** (`singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com:3306`) — used by the PHP insert scripts and `write_dataframe.py` (settlements)
-- **DigitalOcean** (`db-mysql-mds-live-smarta-do-user-*.b.db.ondigitalocean.com:25060`) — used by `write_data.py` and `write_xml_messages.py`
+- **Production** (`DB_*`) — used by the PHP insert scripts and all Python `write_*.py` scripts
+- **Dev** (`DEV_DB_*`) — used by `includes/databaseDev.php`
+- **DigitalOcean** (`DO_DB_*`) — alternate target, available via `db_connection_str('DO_DB')`
 
 ## Repository layout
 
@@ -65,7 +65,8 @@ includes/
   databaseDev.php               Dev/alternate DB connection
   functions.php                 mdsInsert(): truncates table, then bulk-loads a CSV
 config/
-  .env                          Runtime config for ftp.ps1 (not checked in)
+  .env                          Secrets + runtime config (gitignored)
+  .env.example                  Template for .env
 ```
 
 ## How it works
@@ -109,9 +110,10 @@ previous upload, write any new rows to `differences/unique_<file>.csv`, and call
 powershell -File scripts/ftp.ps1
 ```
 
-Configuration (FTP host/credentials, local/remote paths, helper script locations, log
-path, data type list) is read from `config/.env` via the `Import-DotEnv` function at the
-top of `ftp.ps1`.
+All configuration (DB credentials, FTP host/credentials, local/remote paths, helper script
+locations, log path, data type list) is read from `config/.env`. Copy `config/.env.example`
+to `config/.env` and fill it in. `ftp.ps1` loads it via `Import-DotEnv`, PHP via
+`includes/env.php`, and Python via `scripts/python/load_env.py`.
 
 **PHP insert scripts standalone**:
 
@@ -136,8 +138,6 @@ python3 scripts/python/write_data.py "/path/to/file.csv" tablename
 
 ## Notes
 
-- Database credentials are hardcoded in `includes/database.php`, `includes/databaseDev.php`,
-  and the Python `write_*.py` scripts rather than loaded from `config/.env` — treat those
-  files as sensitive and keep them out of any public fork.
+- Never commit `config/.env`, certificates, or `scripts/logs/` — all are gitignored.
 - `mdsInsert()` truncates its target table on every run; there's no append/upsert mode for
   the PHP-driven CSV types.

@@ -1,5 +1,6 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from load_env import db_connection_str
 import os
 import sys
 from convert_column_names import convert_column_names
@@ -33,15 +34,10 @@ def write_data(csv_data, table_name):
     if len(df.columns) < 1:
         raise ValueError("CSV file must contain at least one column")
 
-    # MySQL database connection information
-    username = 'admin'
-    password = 'WkZe8euII9BhqGT8kSxW4mde6D8A8GAc'
-    host = 'singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com'
-    database_name = 'mds-current'
-    port = '3306'
+    # MySQL connection information is read from config/.env
 
     # Create a connection string for MySQL
-    connection_str = f"mysql+pymysql://{username}:{password}@{host}:{port}/{database_name}"
+    connection_str = db_connection_str()
 
     # Create a connection to the MySQL database
     engine = create_engine(connection_str)

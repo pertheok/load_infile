@@ -16,22 +16,6 @@ csv_delimiter = sys.argv[3]
 csv_header = int(sys.argv[4]) # Requires a conversion to an int as it's received as a string
 comp_log_path = sys.argv[5]
 
-# For testing on local
-
-# new_file = r"C:\Users\Jakub\Desktop\csv\MDS_METER_SMARTA_R_E20240416_G2024041701.csv"
-# previous_file = r"C:\Users\Jakub\Desktop\csv\MDS_METER_SMARTA_R_E20240415_G2024041601.csv"
-# csv_delimiter = ','
-# csv_header = 1
-# comp_log_path = r'C:\Users\Jakub\Desktop\csv\comparison_log.txt'
-
-# For testing on RDP
-
-# new_file = r"\\EC2AMAZ-BKV9RT4\DO_Smarta\watercrm-storage-smarta\SMARTA_R\Connection_Register\MDS_DPIDS_SMARTA_R_E20240417_G2024041801.csv"
-# previous_file = r"\\EC2AMAZ-BKV9RT4\DO_Smarta\watercrm-storage-smarta\SMARTA_R\Connection_Register\MDS_DPIDS_SMARTA_R_E20240416_G2024041701.csv"
-# csv_delimiter = ','
-# csv_header = 1
-# comp_log_path = r'C:\laragon\www\CMOS-connect\scripts\logs\comparison_log.txt'
-
 def compare_csvs(downloaded_file_path, previous_most_recent_upload_path, delimiter, header, comparison_log_path):
 
     # Check the filename for a keyword to determine which associated table the data is supposed to go in (keyword: table name)

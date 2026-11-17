@@ -18,7 +18,7 @@ function Import-DotEnv {
     }
 }
 
-Import-DotEnv "C:\laragon\www\CMOS-connect\load_infile\config\.env"
+Import-DotEnv (Join-Path $PSScriptRoot "..\config\.env")
 
 # Fix the absolute path
 

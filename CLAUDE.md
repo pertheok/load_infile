@@ -30,7 +30,7 @@ python3 scripts/python/compare_csvs_individual.py new.csv prev.csv , 1 log.txt
 python3 scripts/python/write_data.py "/path/to/file.csv" tablename
 ```
 
-Configuration lives in `config/.env` and is loaded by `ftp.ps1` at runtime via `Import-DotEnv`.
+Configuration and secrets live in `config/.env`, loaded by `ftp.ps1` (`Import-DotEnv`), PHP (`includes/env.php`) and Python (`scripts/python/load_env.py`).
 
 ## Architecture
 
@@ -83,6 +83,7 @@ All other types (DCHVL, DISCH, DPIDS, ERRTRAN, LGUNR, MDPID, METER, MNETS, MRA, 
 
 ### Databases
 
-- **AWS RDS** (`singleview-smarta-production.cbi7axo6juj4.eu-west-2.rds.amazonaws.com:3306`) — used by PHP scripts and `write_dataframe.py` (settlements)
-- **DigitalOcean** (`db-mysql-mds-live-smarta-do-user-*.b.db.ondigitalocean.com:25060`) — used by `write_data.py` and `write_xml_messages.py`
-- Both target database `mds-current`; credentials are hardcoded in each file
+- All credentials live in `config/.env` (gitignored; template in `config/.env.example`). Never hardcode them.
+- `DB_*` — production MySQL, used by PHP (`includes/database.php` via `includes/env.php`) and Python (`load_env.db_connection_str()`)
+- `DEV_DB_*` — dev DB for `includes/databaseDev.php`; `DO_DB_*` — alternate DigitalOcean DB (`db_connection_str('DO_DB')`)
+- `SETTLEMENTS_UNZIP_DIR` — extraction dir for settlement ZIPs

@@ -1,11 +1,12 @@
 import pandas as pd
 import os
+import load_env  # populates os.environ from config/.env
 from write_dataframe import write_dataframe
 from convert_column_names import convert_column_names
 
 def read_settlements(csv_file_paths):
 
-    BASE_DIR = r"\\EC2AMAZ-BKV9RT4\AWS-S3-MDS\SMARTA_R\Settlement\unzipped"
+    BASE_DIR = os.environ['SETTLEMENTS_UNZIP_DIR']
     dataframes = []
     for file_name in csv_file_paths:
         try:
@@ -25,4 +26,4 @@ def read_settlements(csv_file_paths):
         combined_df = pd.concat(all_dfs, ignore_index=True)
         write_dataframe(combined_df, 'settlements')
     else:
-        print("No valid dataframes to concatenate.")
+        print("No valid dataframes to concatenate.")
